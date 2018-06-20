@@ -1,0 +1,19 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://example.com/"
+            elementFormDefault="qualified">
+    <xsd:complexType name="Address">
+        <xsd:sequence>
+            <xsd:element name="name"   type="xsd:string"/>
+            <xsd:element name="street" type="xsd:string"/>
+            <xsd:element name="city"   type="xsd:string"/>
+            <xsd:element name="state"  type="xsd:string"/>
+            <xsd:element name="zip"    type="xsd:integer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="Status">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="DONE"/>
+            <xsd:enumeration value="TODO"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
