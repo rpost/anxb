@@ -41,9 +41,9 @@ public class AnnotationParser {
         }
     }
 
-    private static class ExpressionVisitor extends GenericVisitorWithDefaults<Void, AceptingAnnotationValues> {
+    private static class ExpressionVisitor extends GenericVisitorWithDefaults<Void, AcceptingAnnotationValues> {
 
-        public Void visit(Expression expression, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(Expression expression, AcceptingAnnotationValues acceptingAnnotationValues) {
             if (expression instanceof ArrayInitializerExpr) {
                 return visit(((ArrayInitializerExpr) expression), acceptingAnnotationValues);
             }
@@ -90,7 +90,7 @@ public class AnnotationParser {
         }
 
         @Override
-        public Void visit(ArrayInitializerExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(ArrayInitializerExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             JAnnotationArrayMember array = acceptingAnnotationValues.array();
             ExpressionVisitor expressionVisitor = new ExpressionVisitor();
             for (Expression expression : n.getValues()) {
@@ -100,73 +100,73 @@ public class AnnotationParser {
         }
 
         @Override
-        public Void visit(BooleanLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(BooleanLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.lit(n.getValue()));
             return null;
         }
 
         @Override
-        public Void visit(ClassExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(ClassExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.dotclass(acceptingAnnotationValues.referenceClass(n.getTypeAsString())));
             return null;
         }
 
         @Override
-        public Void visit(DoubleLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(DoubleLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.lit(n.asDouble()));
             return null;
         }
 
         @Override
-        public Void visit(LongLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(LongLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.lit(n.asLong()));
             return null;
         }
 
         @Override
-        public Void visit(IntegerLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(IntegerLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.lit(n.asInt()));
             return null;
         }
 
         @Override
-        public Void visit(MarkerAnnotationExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(MarkerAnnotationExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             new AnnotationVisitor().visit(n, acceptingAnnotationValues);
             return null;
         }
 
         @Override
-        public Void visit(NormalAnnotationExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(NormalAnnotationExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             new AnnotationVisitor().visit(n, acceptingAnnotationValues);
             return null;
         }
 
         @Override
-        public Void visit(SingleMemberAnnotationExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(SingleMemberAnnotationExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             new AnnotationVisitor().visit(n, acceptingAnnotationValues);
             return null;
         }
 
         @Override
-        public Void visit(NullLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(NullLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr._null());
             return null;
         }
 
         @Override
-        public Void visit(StringLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(StringLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.lit(n.asString()));
             return null;
         }
 
         @Override
-        public Void visit(CharLiteralExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(CharLiteralExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             acceptingAnnotationValues.set(JExpr.lit(n.asChar()));
             return null;
         }
 
         @Override
-        public Void visit(FieldAccessExpr n, AceptingAnnotationValues acceptingAnnotationValues) {
+        public Void visit(FieldAccessExpr n, AcceptingAnnotationValues acceptingAnnotationValues) {
             JFieldRef jFieldRef = Reflections.construct(
                 JFieldRef.class,
                 new Class[]{JType.class, String.class},
@@ -177,7 +177,7 @@ public class AnnotationParser {
         }
 
         @Override
-        public Void visit(final CastExpr n, final AceptingAnnotationValues values) {
+        public Void visit(final CastExpr n, final AcceptingAnnotationValues values) {
             new ExpressionVisitor().visit(
                 n.getExpression(),
                 new AcceptiongExpression() {
@@ -191,7 +191,7 @@ public class AnnotationParser {
         }
     }
 
-    private static abstract class AcceptiongExpression implements AceptingAnnotationValues {
+    private static abstract class AcceptiongExpression implements AcceptingAnnotationValues {
         @Override
         public JAnnotationArrayMember array() {
             throw new IllegalStateException();
@@ -209,7 +209,7 @@ public class AnnotationParser {
     }
 
 
-    private static class JAnnotationUseFieldAdapter implements AceptingAnnotationValues {
+    private static class JAnnotationUseFieldAdapter implements AcceptingAnnotationValues {
 
         private final JAnnotationUse jAnnotationUse;
         private final String fieldName;
@@ -263,7 +263,7 @@ public class AnnotationParser {
 
     }
 
-    private static class JAnnotationArrayMemberAdapter implements AceptingAnnotationValues {
+    private static class JAnnotationArrayMemberAdapter implements AcceptingAnnotationValues {
 
         private JAnnotationArrayMember jAnnotationArrayMember;
 

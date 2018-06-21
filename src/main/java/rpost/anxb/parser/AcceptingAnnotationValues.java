@@ -4,7 +4,7 @@ import com.sun.codemodel.JAnnotationArrayMember;
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JExpression;
 
-public interface AceptingAnnotationValues extends Annotatable {
+public interface AcceptingAnnotationValues extends Annotatable {
 
     void set(JExpression val);
 
