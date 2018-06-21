@@ -13,7 +13,6 @@ repositories {
 dependencies {
     compile 'com.sun.xml.bind:jaxb-xjc:2.2.11'
     compile 'com.sun.xml.bind:jaxb-core:2.2.11'
-    compile 'org.apache.commons:commons-lang3:3.7'
     compile 'com.github.javaparser:javaparser-core:3.6.5'
 
     testCompile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
